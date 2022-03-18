@@ -34,6 +34,7 @@ dependencies:
   colorize: ^3.0.0
   google_sign_in: ^5.1.0
   flutter_signin_button: ^2.0.0
+  carousel_slider: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -52,7 +53,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/back_to_school_banner.png
+    - assets/images/anonymous.jpg
+    - assets/images/question-answer.jpg
+    - assets/images/lightbulb.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

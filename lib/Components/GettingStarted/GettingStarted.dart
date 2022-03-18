@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+
+import 'SlideItems.dart';
 
 class GettingStarted extends StatefulWidget {
   const GettingStarted({Key? key}) : super(key: key);
@@ -8,6 +11,9 @@ class GettingStarted extends StatefulWidget {
 }
 
 class _GettingStartedState extends State<GettingStarted> {
+
+  final List<SlideItem> imageList = SlideItem.getSlideItems();
+
   @override
   Widget build(BuildContext context) {
 
@@ -15,13 +21,37 @@ class _GettingStartedState extends State<GettingStarted> {
       body: Container(
         color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-                child: Image(image: AssetImage('assets/images/back_to_school_banner.png')),
+            CarouselSlider.builder(
+                itemCount: imageList.length,
+                options: CarouselOptions(
+                  autoPlay: false,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: false,
+                  height: MediaQuery.of(context).size.height * 0.7
+                ),
+                itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
+                  return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(image: AssetImage(imageList[itemIndex].url)),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            child: Text(imageList[itemIndex].title, style: TextStyle(fontSize: 20, color: Theme.of(context).primaryColor)),
+                          ),
+                          Text(imageList[itemIndex].description)
+                        ]
+                      )
+                  );
+                },
             ),
-            SizedBox(height: 20),
+            Text('Welcome to Concordia Oracle!', style: TextStyle(fontSize: 20, color: Theme.of(context).primaryColor)),
+            SizedBox(height: 40),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -49,7 +79,7 @@ class _GettingStartedState extends State<GettingStarted> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Have an account? ',
+                        'Have an account?',
                         style: TextStyle(
                             fontSize: 18
                         ),
