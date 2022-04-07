@@ -5,6 +5,10 @@ import 'package:provider/provider.dart';
 import 'Providers/Authentication/Login/Login.dart';
 import 'Routes/router.dart';
 
+const Color LIGHT_BLUE = Color(0xffB7E8FF);
+const Color ALMOST_BLACK = Color(0xff222121);
+const Color LIGHT_GREY = Color(0xff434343);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -19,7 +23,7 @@ void main() async {
               initialRoute: '/',
               onGenerateRoute: Routes.generateRoute,
             );
-        },
+        }
       )
   );
 }
