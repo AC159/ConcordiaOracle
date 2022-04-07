@@ -27,7 +27,7 @@ class _ProfileState extends State<Profile> {
 
     var currentUser = Provider.of<AuthenticationProvider>(context, listen: false);
     String? photoUrl = currentUser.currentUser?.photoURL;
-    double containerHeight = MediaQuery.of(context).size.height * 0.65;
+    double containerHeight = MediaQuery.of(context).size.height * 0.55;
 
     return Scaffold(
       body: Container(

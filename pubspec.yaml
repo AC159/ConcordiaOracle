@@ -54,7 +54,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/concordia-oracle-logo.png
+    - assets/images/concordia-oracle-logo-dark.png
+    - assets/images/concordia-oracle-logo-light.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
