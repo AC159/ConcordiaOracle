@@ -1,4 +1,4 @@
-import 'package:concordia_oracle/Components/HomePage/HomePage.dart';
+import 'package:concordia_oracle/Components/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
