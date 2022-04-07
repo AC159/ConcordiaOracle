@@ -41,7 +41,7 @@ class _GettingStartedState extends State<GettingStarted> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image(image: AssetImage("assets/images/concordia-oracle-logo.png")),
+            Image(image: AssetImage("assets/images/concordia-oracle-logo-dark.png")),
             Column(
               children: [
                 Text('Welcome to Concordia Oracle!', style: TextStyle(fontSize: 20, color: ALMOST_BLACK)),
