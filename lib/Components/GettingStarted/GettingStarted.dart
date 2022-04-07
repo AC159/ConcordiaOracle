@@ -1,7 +1,12 @@
+import 'dart:async';
+import 'package:concordia_oracle/main.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:provider/provider.dart';
+import '../../Providers/Authentication/Login/Login.dart';
 
-import 'SlideItems.dart';
 
 class GettingStarted extends StatefulWidget {
   const GettingStarted({Key? key}) : super(key: key);
@@ -12,87 +17,98 @@ class GettingStarted extends StatefulWidget {
 
 class _GettingStartedState extends State<GettingStarted> {
 
-  final List<SlideItem> imageList = SlideItem.getSlideItems();
-
   @override
   Widget build(BuildContext context) {
 
+    AuthenticationProvider auth = Provider.of<AuthenticationProvider>(context);
+
+    void showAlertDialog(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(content: LinearProgressIndicator());
+        });
+    }
+
+    void _launchURL(String url) async {
+      if (!await launch(url)) throw 'Could not launch $url';
+    }
+
     return Scaffold(
       body: Container(
-        color: Colors.white,
+        color: LIGHT_BLUE,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CarouselSlider.builder(
-                itemCount: imageList.length,
-                options: CarouselOptions(
-                  autoPlay: false,
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                  height: MediaQuery.of(context).size.height * 0.7
-                ),
-                itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
-                  return Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image(image: AssetImage(imageList[itemIndex].url)),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
-                            child: Text(imageList[itemIndex].title, style: TextStyle(fontSize: 20, color: Theme.of(context).primaryColor)),
-                          ),
-                          Text(imageList[itemIndex].description)
-                        ]
-                      )
-                  );
-                },
-            ),
-            Text('Welcome to Concordia Oracle!', style: TextStyle(fontSize: 20, color: Theme.of(context).primaryColor)),
-            SizedBox(height: 40),
+            Image(image: AssetImage("assets/images/concordia-oracle-logo.png")),
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: TextButton(
-                    style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)
-                            )
-                        ),
-                        textStyle: MaterialStateProperty.all(TextStyle(fontSize: 18)),
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor)
-                    ),
-                    child: Text('Sign up'),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/login');
-                    },
-                  ),
+                Text('Welcome to Concordia Oracle!', style: TextStyle(fontSize: 20, color: ALMOST_BLACK)),
+                Text('Glad to see you back!', style: TextStyle(fontSize: 18, color: LIGHT_GREY))
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SignInButton(
+                    Buttons.GoogleDark,
+                    onPressed: () async {
+                      showAlertDialog(context);
+                      await auth.signInWithGoogle();
+                      Navigator.of(context).pushNamedAndRemoveUntil('/homepage', (route) => false);
+                    }
                 ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Have an account?',
-                        style: TextStyle(
-                            fontSize: 18
-                        ),
-                      ),
-                      TextButton(
-                        child: Text('Login', style: TextStyle(fontSize: 18)),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/login');
-                        }
-                      )
-                    ]
+                SignInButton(
+                    Buttons.Facebook,
+                    onPressed: () async {
+                      showAlertDialog(context);
+                      Timer(Duration(seconds: 3), () => Navigator.of(context).pushNamedAndRemoveUntil('/homepage', (route) => false));
+                    }
+                ),
+                SignInButton(
+                    Buttons.AppleDark,
+                    onPressed: () async {
+                      showAlertDialog(context);
+                      Timer(Duration(seconds: 3), () => Navigator.of(context).pushNamedAndRemoveUntil('/homepage', (route) => false));
+                    }
                 )
               ]
+            ),
+
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                      text: TextSpan(
+                          children: [
+                            TextSpan(text: 'By signing in you agree to Concordia Oracle\'s ', style: TextStyle(color: ALMOST_BLACK, fontSize: 16)),
+                            TextSpan(
+                                text: 'terms of service',
+                                style: TextStyle(color: Colors.lightBlue, fontSize: 16),
+                                recognizer: TapGestureRecognizer()..onTap = () {
+                                  String url = "https://www.websitepolicies.com/blog/privacy-policy-url-terms-service-url-facebook-app";
+                                  _launchURL(url);
+                                }
+                            ),
+                            TextSpan(text: ' and ', style: TextStyle(color: ALMOST_BLACK, fontSize: 16)),
+                            TextSpan(
+                                text: 'privacy policy',
+                                style: TextStyle(color: Colors.lightBlue, fontSize: 16),
+                                recognizer: TapGestureRecognizer()..onTap = () {
+                                  String url = "https://www.freeprivacypolicy.com/blog/privacy-policy-url/";
+                                  _launchURL(url);
+                                }
+                            )
+                          ]
+                      )
+                  ),
+                )
+              ],
             )
           ]
         )
