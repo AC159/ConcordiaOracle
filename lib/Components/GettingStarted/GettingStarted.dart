@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:concordia_oracle/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +36,18 @@ class _GettingStartedState extends State<GettingStarted> {
 
     return Scaffold(
       body: Container(
-        color: Colors.white,
+        color: LIGHT_BLUE,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image(image: AssetImage("assets/images/concordia-oracle-logo.png")),
-            Text('Welcome to Concordia Oracle!', style: TextStyle(fontSize: 20, color: Theme.of(context).primaryColor)),
+            Column(
+              children: [
+                Text('Welcome to Concordia Oracle!', style: TextStyle(fontSize: 20, color: ALMOST_BLACK)),
+                Text('Glad to see you back!', style: TextStyle(fontSize: 18, color: LIGHT_GREY))
+              ],
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,7 +86,7 @@ class _GettingStartedState extends State<GettingStarted> {
                     textAlign: TextAlign.center,
                       text: TextSpan(
                           children: [
-                            TextSpan(text: 'By signing in you agree to Concordia Oracle\'s ', style: TextStyle(color: Colors.black, fontSize: 16)),
+                            TextSpan(text: 'By signing in you agree to Concordia Oracle\'s ', style: TextStyle(color: ALMOST_BLACK, fontSize: 16)),
                             TextSpan(
                                 text: 'terms of service',
                                 style: TextStyle(color: Colors.lightBlue, fontSize: 16),
@@ -89,7 +95,7 @@ class _GettingStartedState extends State<GettingStarted> {
                                   _launchURL(url);
                                 }
                             ),
-                            TextSpan(text: ' and ', style: TextStyle(color: Colors.black, fontSize: 16)),
+                            TextSpan(text: ' and ', style: TextStyle(color: ALMOST_BLACK, fontSize: 16)),
                             TextSpan(
                                 text: 'privacy policy',
                                 style: TextStyle(color: Colors.lightBlue, fontSize: 16),
