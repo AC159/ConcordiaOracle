@@ -1,5 +1,6 @@
 import 'package:concordia_oracle/Components/Profile.dart';
 import 'package:concordia_oracle/Components/Ratings.dart';
+import 'package:concordia_oracle/Components/Forum.dart';
 import 'package:concordia_oracle/Providers/Authentication/Login/Login.dart';
 import 'package:concordia_oracle/main.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   static const List<Widget> bottomNavigationTabs = [
     Profile(),
-    Text('Forum'),
+    Forum(),
     Ratings(),
   ];
 
