@@ -25,6 +25,97 @@ class _ForumState extends State<Forum> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Forum", style: TextStyle(fontSize: 30, color: Colors.white)), backgroundColor: ALMOST_BLACK),
+      body: Container(
+        color: ALMOST_BLACK,
+        child: Column(
+          children: [
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: TextField(
+                    style: TextStyle(color: Colors.white),
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: LIGHT_GREY,
+                        hintText: "search...",
+                        hintStyle: TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)
+                        )
+                    )
+                )
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                      child: Text("Filter", style: TextStyle(color: Colors.white, fontSize: 16)),
+                      onPressed: () {}
+                  ),
+                  TextButton(
+                      child: Text("See all", style: TextStyle(color: Colors.white, fontSize: 16)),
+                      onPressed: () {}
+                  )
+                ],
+              ),
+            ),
+
+            Expanded(
+              child: ListView.builder(
+                  itemCount: forumQuestionList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Card(
+                          elevation: 5,
+                          color: LIGHT_GREY,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          Text("${forumQuestionList[index]['name']}", style: TextStyle(color: Colors.white, fontSize: 20)),
+                                        ]
+                                      )
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text("${forumQuestionList[index]['questionTitle']}", style: TextStyle(color: Colors.white, fontSize: 20)),
+                                    ),
+                                    Row(
+                                        children: [
+                                          Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                              child: Icon(Icons.thumb_up, color: Theme.of(context).primaryColor)
+                                          ),
+                                          Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                              child: Icon(Icons.thumb_down, color: Theme.of(context).primaryColor)
+                                          )
+                                        ]
+                                    )
+                                  ]
+                              )
+                          )
+                      ),
+                    );
+                  }
+              ),
+            )
+          ]
+        )
+
+      )
     );
   }
 
