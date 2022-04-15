@@ -163,51 +163,74 @@ class _ForumState extends State<Forum> with AfterLayoutMixin<Forum> {
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget> [
-                ElevatedButton(onPressed: () => this.closePanel(), child: Icon(Icons.cancel_outlined, color: Theme.of(context).primaryColor), style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK), fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(40)),)),
-                ElevatedButton(
-                  onPressed: () {
-                    // Validate will return true if the form is valid, or false if
-                    // the form is invalid.
-                    if (_formKey.currentState!.validate()) {
-                      // Process data.
-                    }
-                  },
-                  child: add_plus, style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK), fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(20))),
-                ),
-              ]
+          AppBar(
+            backgroundColor: ALMOST_BLACK,
+            leading: ElevatedButton(onPressed: () => this.closePanel(), child: Icon(Icons.cancel_outlined, color: Theme.of(context).primaryColor, size: 60,), style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK) /*, fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(20)) */,)),
+            actions: [ElevatedButton(
+              onPressed: () {
+                // Validate will return true if the form is valid, or false if
+                // the form is invalid.
+                if (_formKey.currentState!.validate()) {
+                  // Process data.
+                }
+              },
+              child: add_plus, style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK), fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(20))),
+            ),],
           ),
+          // Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: <Widget> [
+          //       ElevatedButton(onPressed: () => this.closePanel(), child: Icon(Icons.cancel_outlined, color: Theme.of(context).primaryColor, size: 20,), style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK), fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(20)),)),
+          //       ElevatedButton(
+          //         onPressed: () {
+          //           // Validate will return true if the form is valid, or false if
+          //           // the form is invalid.
+          //           if (_formKey.currentState!.validate()) {
+          //             // Process data.
+          //           }
+          //         },
+          //         child: add_plus, style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK), fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(20))),
+          //       ),
+          //     ]
+          // ),
+          Padding(padding: const EdgeInsets.symmetric(vertical: 16.0), child: Text("Categories:",)),
           Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget> [
-                DropdownButton<String>(
-                    style: const TextStyle(color: Colors.white),
-                    dropdownColor: LIGHT_GREY,
-                    // decoration: const InputDecoration(
-                    //     border: OutlineInputBorder(),
-                    //     fillColor: LIGHT_GREY
-                    // ),
-                    borderRadius: BorderRadius.circular(20),
-
-                    value: dropdownValue,
-                    items: questionCategories,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                      });
-                    }
-                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: LIGHT_GREY
+                  ),
+                  child: DropdownButtonFormField<String>(
+                      isExpanded: true,
+                      style: const TextStyle(color: Colors.white),
+                      dropdownColor: LIGHT_GREY,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                          fillColor: LIGHT_GREY
+                      ),
+                      value: dropdownValue,
+                      items: questionCategories,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
+                      }
+                  ),),
               ]
           ),
+          Padding(padding: const EdgeInsets.symmetric(vertical: 16.0)),
+          Padding(padding: const EdgeInsets.symmetric(vertical: 16.0), child: Text("Question:")),
           Row(
               children: <Widget> [
                 Expanded(
                   child:
                   TextFormField(
+                    //expands: true,
                     style: TextStyle(color: Colors.white),
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
