@@ -51,7 +51,7 @@ class _ForumState extends State<Forum> with AfterLayoutMixin<Forum> {
           body: forumContainer(),
           minHeight: 0, // should be behind the bottom navbar
           isDraggable: false,
-          backdropOpacity: 0.5, // does not work
+          backdropOpacity: 1, // does not work
           backdropTapClosesPanel: true, // also does not work
           color: ALMOST_BLACK,
         )
@@ -152,31 +152,6 @@ class _ForumState extends State<Forum> with AfterLayoutMixin<Forum> {
     );
   }
 
-  Widget _body(){
-    return Container(
-      child: Column(
-        children: <Widget>[
-          ElevatedButton(
-            child: Text("Open"),
-            onPressed: () => _pc.open(),
-          ),
-          ElevatedButton(
-            child: Text("Close"),
-            onPressed: () => _pc.close(),
-          ),
-          ElevatedButton(
-            child: Text("Show"),
-            onPressed: () => _pc.show(),
-          ),
-          ElevatedButton(
-            child: Text("Hide"),
-            onPressed: () => _pc.hide(),
-          ),
-        ],
-      ),
-    );
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var questionCategories = <String>["General", "Internships", "Courses", "Teachers", "Social"].map<DropdownMenuItem<String>>((String value) {
     return DropdownMenuItem<String>(value: value, child: Text(value));
@@ -193,7 +168,7 @@ class _ForumState extends State<Forum> with AfterLayoutMixin<Forum> {
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget> [
-                ElevatedButton(onPressed: () => this.closePanel(), child: Text("Close")),
+                ElevatedButton(onPressed: () => this.closePanel(), child: Icon(Icons.cancel_outlined, color: Theme.of(context).primaryColor), style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK), fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(40)),)),
                 ElevatedButton(
                   onPressed: () {
                     // Validate will return true if the form is valid, or false if
@@ -207,8 +182,17 @@ class _ForumState extends State<Forum> with AfterLayoutMixin<Forum> {
               ]
           ),
           Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget> [
                 DropdownButton<String>(
+                    style: const TextStyle(color: Colors.white),
+                    dropdownColor: LIGHT_GREY,
+                    // decoration: const InputDecoration(
+                    //     border: OutlineInputBorder(),
+                    //     fillColor: LIGHT_GREY
+                    // ),
+                    borderRadius: BorderRadius.circular(20),
+
                     value: dropdownValue,
                     items: questionCategories,
                     onChanged: (String? newValue) {
