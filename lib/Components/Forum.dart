@@ -12,7 +12,7 @@ class Forum extends StatefulWidget {
 
 
 class _ForumState extends State<Forum> with AfterLayoutMixin<Forum> {
-  static const List<Map<String, String>> forumQuestionList = [
+  List<Map<String, String>> forumQuestionList = [
     {"name": "Ira Gilligan", "questionTitle": "How to juggle 5 courses in a semester?", "questionText": "I'm planning for the next sem, just wondering"},
     {"name": "George Oscar", "questionTitle": "How do you guys find internships?", "questionText": "I plan to start getting experience this summer."},
     {"name": "Lindsay Bluth", "questionTitle": "What courses are best to take this coming Fall?", "questionText": "Looking for some fun and educational electives"},
@@ -39,9 +39,10 @@ class _ForumState extends State<Forum> with AfterLayoutMixin<Forum> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Forum", style: TextStyle(fontSize: 30, color: Colors.white)),
+          title: Text("Forum", style: TextStyle(fontSize: 30, color: Colors.white),),
           backgroundColor: ALMOST_BLACK,
-          actions: <Widget>[ElevatedButton(onPressed: () => {_pc.open()}, child: add_plus, style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK)))],
+          elevation: 0,
+          actions: <Widget>[IconButton(onPressed: () => {_pc.open()}, icon: add_plus, iconSize: 80)],
         ),
         body: SlidingUpPanel(
           controller: _pc,
@@ -160,112 +161,94 @@ class _ForumState extends State<Forum> with AfterLayoutMixin<Forum> {
   String dropdownValue = "General";
 
   Widget _form(BuildContext context) {
+    const double offset = 20;
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: ALMOST_BLACK,
-            leading: ElevatedButton(onPressed: () => this.closePanel(), child: Icon(Icons.cancel_outlined, color: Theme.of(context).primaryColor, size: 60,), style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK) /*, fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(20)) */,)),
-            actions: [ElevatedButton(
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () => this.closePanel(),
+              icon: Icon(Icons.cancel_outlined),
+              color: Color.fromRGBO(66, 192, 251, 1),
+              iconSize: 50,
+              padding: EdgeInsets.only(left: 10),
+            ),
+            actions: [IconButton(
               onPressed: () {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
                 if (_formKey.currentState!.validate()) {
                   // Process data.
+                  // We do nothing :)
                 }
               },
-              child: add_plus, style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK), fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(20))),
-            ),],
+              icon: add_plus,
+              iconSize: 80,
+            )
+            ],
           ),
-          // Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: <Widget> [
-          //       ElevatedButton(onPressed: () => this.closePanel(), child: Icon(Icons.cancel_outlined, color: Theme.of(context).primaryColor, size: 20,), style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK), fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(20)),)),
-          //       ElevatedButton(
-          //         onPressed: () {
-          //           // Validate will return true if the form is valid, or false if
-          //           // the form is invalid.
-          //           if (_formKey.currentState!.validate()) {
-          //             // Process data.
-          //           }
-          //         },
-          //         child: add_plus, style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK), fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(20))),
-          //       ),
-          //     ]
-          // ),
-          Padding(padding: const EdgeInsets.symmetric(vertical: 16.0), child: Text("Categories:",)),
-          Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget> [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: LIGHT_GREY
-                  ),
-                  child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      style: const TextStyle(color: Colors.white),
-                      dropdownColor: LIGHT_GREY,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                          fillColor: LIGHT_GREY
-                      ),
-                      value: dropdownValue,
-                      items: questionCategories,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue!;
-                        });
-                      }
-                  ),),
-              ]
-          ),
-          Padding(padding: const EdgeInsets.symmetric(vertical: 16.0)),
-          Padding(padding: const EdgeInsets.symmetric(vertical: 16.0), child: Text("Question:")),
-          Row(
-              children: <Widget> [
-                Expanded(
-                  child:
-                  TextFormField(
-                    //expands: true,
-                    style: TextStyle(color: Colors.white),
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: LIGHT_GREY,
-                        hintText: "Write Question...",
-                        hintStyle: TextStyle(color: Colors.white),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20)
-                        )
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: offset),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(padding: const EdgeInsets.symmetric(vertical: 16.0), child: Text("Categories:", style: TextStyle(fontSize: 24, color: Colors.white),)),
+                  Container(
+                    width: MediaQuery.of(context).size.width - (offset*2), // there is probably a cleaner way, but I don't know what it is and can't think of it rn.
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: LIGHT_GREY
                     ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                )
-              ]
+                    child: DropdownButtonFormField<String>(
+                      //isExpanded: true,
+                        style: const TextStyle(color: Colors.white),
+                        dropdownColor: LIGHT_GREY,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                            fillColor: LIGHT_GREY
+                        ),
+                        value: dropdownValue,
+                        items: questionCategories,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        }
+                    ),),
+                  Padding(padding: const EdgeInsets.symmetric(vertical: 16.0)),
+                  Padding(padding: const EdgeInsets.symmetric(vertical: 16.0), child: Text("Question:", style: TextStyle(fontSize: 24, color: Colors.white,),)),
+                  Expanded(
+                    child:
+                    TextFormField(
+                      maxLines: null,
+                      minLines: 8,
+                      style: TextStyle(color: Colors.white),
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          filled: true,
+                          fillColor: LIGHT_GREY,
+                          hintText: "Write Question...",
+                          hintStyle: TextStyle(color: Colors.white),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20)
+                          )
+                      ),
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                  )
+                ],
+              )
           ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(vertical: 16.0),
-          //   child:
-          //   ElevatedButton(
-          //     onPressed: () {
-          //       // Validate will return true if the form is valid, or false if
-          //       // the form is invalid.
-          //       if (_formKey.currentState!.validate()) {
-          //         // Process data.
-          //       }
-          //     },
-          //     child: add_plus, style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(ALMOST_BLACK), fixedSize: MaterialStateProperty.all<Size>(Size.fromHeight(20))),
-          //   ),
-          // ),
         ],
       ),
     );
