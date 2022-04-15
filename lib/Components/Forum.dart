@@ -222,29 +222,26 @@ class _ForumState extends State<Forum> with AfterLayoutMixin<Forum> {
                     ),),
                   Padding(padding: const EdgeInsets.symmetric(vertical: 16.0)),
                   Padding(padding: const EdgeInsets.symmetric(vertical: 16.0), child: Text("Question:", style: TextStyle(fontSize: 24, color: Colors.white,),)),
-                  Expanded(
-                    child:
-                    TextFormField(
-                      maxLines: null,
-                      minLines: 8,
-                      style: TextStyle(color: Colors.white),
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: LIGHT_GREY,
-                          hintText: "Write Question...",
-                          hintStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20)
-                          )
-                      ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
+                  TextFormField(
+                    maxLines: null,
+                    minLines: 8,
+                    style: TextStyle(color: Colors.white),
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: LIGHT_GREY,
+                        hintText: "Write Question...",
+                        hintStyle: TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)
+                        )
                     ),
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
                   )
                 ],
               )
