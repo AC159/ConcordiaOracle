@@ -49,7 +49,7 @@ class _ForumState extends State<Forum> with AfterLayoutMixin<Forum> {
               child: _form(context)
           ),
           body: forumContainer(),
-          minHeight: -10, // should be behind the bottom navbar
+          minHeight: 0, // should be behind the bottom navbar
           isDraggable: false,
           backdropOpacity: 0.5, // does not work
           backdropTapClosesPanel: true, // also does not work
