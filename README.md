@@ -8,6 +8,7 @@ Team Members:
 - Anas Peerzada, 40040127, (DrakeHunterK7, https://github.com/DrakeHunterK7)
 - Anastassy Cap, 40128337, 
 - Olivier Phan, 40096496, (Olivier_P, https://github.com/silentswordxv)
+- Waleed Iqbal, 40112596, GitHub Username: WaleedIqbal99
 
 ## Prototype
 
