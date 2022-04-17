@@ -6,5 +6,8 @@ Winter 2022
 
 Team Members:
 - Anas Peerzada, 40040127, GitHub Username: DrakeHunterK7
+- Anastassy Cap
 
-## Getting Started
+## Prototype
+
+![Gif showing the prototype of Concordia Oracle](https://github.com/AC159/ConcordiaOracle/blob/master/github_images/prototype.gif)
