@@ -14,4 +14,4 @@ Team Members:
 
 ## Prototype
 
-![Gif showing the prototype of Concordia Oracle](https://github.com/AC159/ConcordiaOracle/blob/master/github_images/prototype.gif)
+<img src="https://github.com/AC159/ConcordiaOracle/blob/master/github_images/prototype.gif" height="750" alt="Gif showing the prototype of Concordia Oracle"/>
